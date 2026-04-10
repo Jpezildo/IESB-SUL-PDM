@@ -1,0 +1,99 @@
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+import DespesaSaida from '../components/despesa/DespesaSaida';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import GerenciarDespesa from './screens/GerenciarDespesa';
+import TodasDespesas from './screens/TodasDespesas';
+import DespesaRecente from './screens/DespesaRecente';
+import { NavigationContainer } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
+import {useNavigation} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import IconButton from './IconButton';
+
+function TodasDespesas() {
+
+    const DUMMY_DESPESAS = [
+        {
+            id:'1',
+            descricao: 'Conta de luz',
+            valor: 100.99,
+            data: new Date(2025, 2, 11)
+        },
+        {
+            id:'2',
+            descricao: 'Conta de Agua',
+            valor: 40.99,
+            data: new Date(2025, 4, 10)
+        }
+    ]
+
+    return(
+        <DespesaSaida despesas={DUMMY_DESPESAS} periodo={'Total'}/>
+    )
+}
+
+
+export default function App() {
+  const Tab = createBottomTabNavigator();
+
+  function BottonTabScreen(){
+  return (
+  <Tab.Navigator
+    screenOptions={( {navigation } ) => ({ headerRight: () => <IconButton icon="add" size={24} onPress={() => {navigation.navigate('GerenciarDespesa') }} />  })  }>
+
+    <Tab.Screen name="DespesaRecente" component={DespesaRecente} options={{tabBarIcon:({color,size}) => (<Ionicons name="hourglass" size={size} color={color}/>),
+    tabBarLabel: 'Recentes',
+    title: 'Despesas Recentes',
+    tabBarLabelStyle: { fontSize: 12}}}
+    />
+    <Tab.Screen name="TodasDespesas" component={TodasDespesas} 
+    options={{tabBarIcon: ({color, size}) => (<Ionicons name="wallet-outline" size={size} color={color}/>),
+    tabBarLabel: 'Todas',
+    title: 'Todas as Despesas',
+    tabBarLabelStyle: { fontSize: 12}}}
+    />
+
+  </Tab.Navigator>
+  );
+}
+const styles = StyleSheet.create({ container: {
+  flex: 1,
+  backgroundColor: '#fff',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+});
+
+const Stack = createNativeStackNavigator();
+return(
+  <NavigationContainer>
+    <Stack.Navigator >
+      <Stack.Screen name="Despesas" component={BottonTabScreen}
+        options={{headerShown:false}}/>
+      <Stack.Screen name="GerenciarDespesa" component={GerenciarDespesa}/>
+    </Stack.Navigator>
+  </NavigationContainer>
+    );
+  }
+
+
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
