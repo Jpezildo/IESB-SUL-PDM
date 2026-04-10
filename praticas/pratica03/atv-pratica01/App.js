@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-<<<<<<< HEAD
+import DespesaSaida from '../components/despesa/DespesaSaida';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import GerenciarDespesa from './screens/GerenciarDespesa';
 import TodasDespesas from './screens/TodasDespesas';
@@ -10,6 +10,29 @@ import { Ionicons } from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import IconButton from './IconButton';
+
+function TodasDespesas() {
+
+    const DUMMY_DESPESAS = [
+        {
+            id:'1',
+            descricao: 'Conta de luz',
+            valor: 100.99,
+            data: new Date(2025, 2, 11)
+        },
+        {
+            id:'2',
+            descricao: 'Conta de Agua',
+            valor: 40.99,
+            data: new Date(2025, 4, 10)
+        }
+    ]
+
+    return(
+        <DespesaSaida despesas={DUMMY_DESPESAS} periodo={'Total'}/>
+    )
+}
+
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -54,7 +77,7 @@ return(
     );
   }
 
-=======
+
 
 export default function App() {
   return (
@@ -73,4 +96,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
->>>>>>> fb70b398b2ee2cfdf6aa647d42c90b50f451b443
+
